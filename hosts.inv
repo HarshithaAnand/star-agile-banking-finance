@@ -1,4 +1,6 @@
 [webservers]
-  172.31.31.232
-  172.31.24.244
-  ansible_user=ubuntu
+        172.31.3.232
+        172.31.24.244
+[webservers:vars]
+        ansible_ssh_user="ubuntu"
+        ansible_ssh_private_key_file="/etc/ansible/Ansible_key.pem"
