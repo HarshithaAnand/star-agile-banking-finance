@@ -4,9 +4,9 @@ access_key = "AKIAZCOGWBPBAFPD6KMF"
 secret_key = "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"
 }
 
-locals {
-  PRIVATE_IP = aws_instance.test_server.private_ip
-}
+#locals {
+ # PRIVATE_IP = aws_instance.test_server.private_ip
+#}
 
 resource "aws_instance" "test_server" {
   ami                          = "ami-0430580de6244e02e"
@@ -24,11 +24,11 @@ resource "aws_instance" "test_server" {
     apt-get install -y docker-ce docker-ce-cli containerd.io
     usermod -aG docker ubuntu
     apt-get install ansible
-    PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+    #PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 
     # Run Ansible playbook
     echo "Running Ansible playbook..."
-    ansible-playbook -i "${aws_instance.test_server.private_ip}", /etc/ansible/ansible-playbook.yml
+    ansible-playbook -i "${var.private_ip}," /etc/ansible/ansible-playbook.yml
 EOF
  
   tags = {
