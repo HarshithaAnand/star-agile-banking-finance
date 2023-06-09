@@ -4,7 +4,7 @@ access_key = "AKIAZCOGWBPBAFPD6KMF"
 secret_key = "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"
 }
 
-resource "aws_instance" "my_ec2_instance" {
+resource "aws_instance" "test_server" {
   ami                          = "ami-0430580de6244e02e"
   instance_type                = "t2.medium"
   key_name                     = "Ansible_key"
@@ -19,7 +19,10 @@ resource "aws_instance" "my_ec2_instance" {
     apt-get update -y
     apt-get install -y docker-ce docker-ce-cli containerd.io
     usermod -aG docker ubuntu
-  EOF
+    apt-get install ansible
+    ansible-playbook -i ${aws_instance.test_server.public_ip}, ansible-playbook.yml
+EOF
+  
 
   tags = {
     Name = "Test_server"
