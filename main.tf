@@ -28,7 +28,7 @@ resource "aws_instance" "test_server" {
 
     # Run Ansible playbook
     echo "Running Ansible playbook..."
-    ansible-playbook -i ${aws_instance.test_server.private_ip}, /etc/ansible/ansible-playbook.yml
+    ansible-playbook -i "${aws_instance.test_server.private_ip}", /etc/ansible/ansible-playbook.yml
 EOF
  
   tags = {
