@@ -32,6 +32,6 @@ resource "aws_instance" "test_server" {
 EOF
  
   tags = {
-    Name = "Test_server"
+    Name = "test_server"
   }
 }
