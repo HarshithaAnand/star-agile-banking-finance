@@ -1,7 +1,5 @@
 provider "aws" {
 region = "us-east-2"
-access_key = "AKIAZCOGWBPBAFPD6KMF"
-secret_key = "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"
 }
 
 #locals {
@@ -32,6 +30,6 @@ resource "aws_instance" "test_server" {
 EOF
  
   tags = {
-    Name = "test_server"
+    Name = "Production_Server"
   }
 }
