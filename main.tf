@@ -2,14 +2,11 @@ provider "aws" {
 region = "us-east-2"
 }
 
-#locals {
- # PRIVATE_IP = aws_instance.test_server.private_ip
-#}
 
-resource "aws_instance" "test_server" {
+resource "aws_instance" "Production_server" {
   ami                          = "ami-0430580de6244e02e"
   instance_type                = "t2.medium"
-  key_name                     = "Insure_key"
+  key_name                     = "Insure_Key"
   associate_public_ip_address  = true
 
   user_data = <<-EOF
