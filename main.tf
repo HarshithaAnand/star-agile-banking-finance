@@ -9,7 +9,7 @@ region = "us-east-2"
 resource "aws_instance" "test_server" {
   ami                          = "ami-0430580de6244e02e"
   instance_type                = "t2.medium"
-  key_name                     = "Ansible_key"
+  key_name                     = "Insure_key"
   associate_public_ip_address  = true
 
   user_data = <<-EOF
@@ -21,12 +21,17 @@ resource "aws_instance" "test_server" {
     apt-get update -y
     apt-get install -y docker-ce docker-ce-cli containerd.io
     usermod -aG docker ubuntu
-    apt-get install ansible
-    #PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+    sudo docker run -p 8084:8081 -d harshithaanand/finance_me_conatiner
+    sudo apt-get install prometheus
 
-    # Run Ansible playbook
-    echo "Running Ansible playbook..."
-    ansible-playbook -i "${var.private_ip}," /etc/ansible/ansible-playbook.yml
+    sudo apt-get install -y apt-transport-https
+    sudo apt-get install -y software-properties-common wget
+    sudo wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key
+    echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+    echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://apt.grafana.com beta main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+    sudo apt-get install grafana
+    sudo apt-get install grafana-enterprise
+
 EOF
  
   tags = {
